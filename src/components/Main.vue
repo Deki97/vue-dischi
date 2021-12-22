@@ -1,9 +1,18 @@
 <template>
     <main>
         <div class="container">
-            Ciao sono il main
-
-            <SingleDisc />
+            <div class="discs-list">
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+                <SingleDisc />
+            </div>
         </div>
     </main>
 </template>
@@ -22,5 +31,17 @@ export default {
 
 
 <style scoped lang="scss">
+@import '../style/variables';
 
+
+main {
+    background-color: $page_primary-color;
+    padding: 50px 0;
+    .container {
+        .discs-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+}
 </style>
