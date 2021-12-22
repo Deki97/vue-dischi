@@ -1,9 +1,11 @@
 <template>
     <main>
         <div class="container">
-            <div class="discs-list">
+            <div v-if="discs.length > 0" class="discs-list">
                 <SingleDisc v-for="(item, index) in discs" :key="index" :objectDisc="item"/>
             </div>
+
+            <Loader v-else />
         </div>
     </main>
 </template>
@@ -12,11 +14,13 @@
 <script>
 import axios from 'axios';
 import SingleDisc from "./SingleDisc.vue";
+import Loader from "./Loader.vue";
 
 export default {
     name: 'Main',
     components: {
-        SingleDisc
+        SingleDisc,
+        Loader
     },
     data: function() {
         return {
