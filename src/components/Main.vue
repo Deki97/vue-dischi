@@ -1,6 +1,8 @@
 <template>
     <main>
         <div class="container">
+            <SelectFilter />
+            
             <div v-if="discs.length > 0" class="discs-list">
                 <SingleDisc v-for="(item, index) in discs" :key="index" :objectDisc="item"/>
             </div>
@@ -15,12 +17,14 @@
 import axios from 'axios';
 import SingleDisc from "./SingleDisc.vue";
 import Loader from "./Loader.vue";
+import SelectFilter from "./SelectFilter.vue";
 
 export default {
     name: 'Main',
     components: {
         SingleDisc,
-        Loader
+        Loader,
+        SelectFilter
     },
     data: function() {
         return {
