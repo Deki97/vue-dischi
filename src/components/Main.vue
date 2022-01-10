@@ -76,7 +76,7 @@ export default {
 main {
     height: calc(100vh - 75px);
     background-color: $page_primary-color;
-    padding: 50px 0;
+    padding: 10px 0;
 
     .container {
         .discs-list {
