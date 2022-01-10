@@ -18,6 +18,7 @@ export default {
 @import '../style/variables';
 
 header {
+    height: 75px;
     padding: 10px 30px;
     background-color: $page-secondary-color;
 

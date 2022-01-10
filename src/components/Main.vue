@@ -1,10 +1,16 @@
 <template>
     <main>
         <div class="container">
-            <SelectFilter />
+            <SelectFilter @selectClicked="selectDone" />
             
-            <div v-if="discs.length > 0" class="discs-list">
-                <SingleDisc v-for="(item, index) in discs" :key="index" :objectDisc="item"/>
+            <div v-if="!isLoadingApi">
+                <div v-if="filteredGenres.length > 0" class="discs-list">
+                    <SingleDisc v-for="(item, index) in filteredGenres" :key="index" :objectDisc="item"/>
+                </div>
+
+                <div class="no-results" v-else>
+                    Nessun risultato per il tipo di genere selezionato
+                </div>
             </div>
 
             <Loader v-else />
@@ -28,13 +34,35 @@ export default {
     },
     data: function() {
         return {
-            discs: []
+            discs: [],
+            valueSelected: '',
+            isLoadingApi: true
         };
+    },
+    methods: {
+        selectDone: function(value) {
+            this.valueSelected = value;
+        }
+    },
+    computed: {
+        filteredGenres: function() {
+            if(this.valueSelected === '') {
+                return this.discs;
+            }
+
+            const filteredArray = this.discs.filter((item) => {
+                return item.genre.toLowerCase().includes(this.valueSelected.toLowerCase());
+            });
+
+            return filteredArray;
+        }
     },
     created: function() {
         axios.get('https://flynn.boolean.careers/exercises/api/array/music')
         .then((response) => {
             this.discs = response.data.response;
+
+            this.isLoadingApi = false;
         });
     }
 }
@@ -46,12 +74,19 @@ export default {
 
 
 main {
+    height: calc(100vh - 75px);
     background-color: $page_primary-color;
     padding: 50px 0;
     .container {
         .discs-list {
             display: flex;
             flex-wrap: wrap;
+        }
+
+        .no-results {
+            color: white;
+            margin-left: 20px;
+            margin-top: 50px;
         }
     }
 }
